@@ -1,3 +1,4 @@
+// InfoSidebar.tsx
 import { Sparkles, Wand2, Code2, MessageSquare } from 'lucide-react';
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -10,7 +11,11 @@ const EXAMPLE_PROMPTS = [
   "Create a marketing strategy for a new product"
 ];
 
-export function InfoSidebar() {
+interface InfoSidebarProps {
+  onPromptClick: (prompt: string) => void; // Prop for handling prompt clicks
+}
+
+export function InfoSidebar({ onPromptClick }: InfoSidebarProps) {
   return (
     <div className="flex flex-col space-y-4">
       <Card className="p-4">
@@ -47,6 +52,7 @@ export function InfoSidebar() {
               key={index}
               variant="ghost"
               className="h-auto w-full py-2 px-3 justify-start text-sm font-normal whitespace-normal text-left break-words"
+              onClick={() => onPromptClick(prompt)} // Call the prop function on click
             >
               {prompt}
             </Button>

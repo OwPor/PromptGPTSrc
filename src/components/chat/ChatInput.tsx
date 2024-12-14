@@ -11,6 +11,13 @@ interface ChatInputProps {
 }
 
 export function ChatInput({ input, isLoading, onInputChange, onSubmit }: ChatInputProps) {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      onSubmit(e as unknown as React.FormEvent);
+    }
+  };
+
   return (
     <Card className="p-4">
       <form onSubmit={onSubmit} className="space-y-4">
@@ -23,6 +30,7 @@ export function ChatInput({ input, isLoading, onInputChange, onSubmit }: ChatInp
             placeholder="Craft your prompt here... (e.g., 'Write a creative story about a time traveler')"
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
+            onKeyDown={handleKeyDown}
             className="min-h-[100px] resize-none"
           />
           <Button type="submit" className="px-8" disabled={isLoading}>

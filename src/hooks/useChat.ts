@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Message } from '@/types/chat';
 import axios from 'axios';
-import dotenv from 'dotenv';
-dotenv.config();
+// import dotenv from 'dotenv';
+// dotenv.config();
 
 export function useChat() {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -26,7 +26,7 @@ export function useChat() {
             {
               parts: [
                 {
-                  text: `${process.env.VITE_PromptPart1}${input}${process.env.VITE_PromptPart2}`
+                  text: input
                 }
               ]
             }
@@ -37,7 +37,7 @@ export function useChat() {
             'Content-Type': 'application/json'
           },
           params: {
-            key: process.env.VITE_API_KEY
+            key: "API_KEY"
           }
         }
       );
@@ -48,7 +48,7 @@ export function useChat() {
       };
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
-      console.error('Error fetching response from Gemini API:', error);
+      console.error('Error fetching response from the API:', error);
       const errorMessage: Message = {
         role: 'assistant',
         content: 'Sorry, there was an error processing your request. Please try again later.'

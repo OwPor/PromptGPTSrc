@@ -8,7 +8,7 @@ export function Header() {
           <div className="flex items-center space-x-2">
             <Brain className="h-7 w-7 text-primary animate-pulse" />
             <div>
-              <h1 className="font-bold text-xl">Gemini Chat</h1>
+              <h1 className="font-bold text-xl">PromptGPT</h1>
               <p className="text-xs text-muted-foreground">AI Assistant</p>
             </div>
           </div>

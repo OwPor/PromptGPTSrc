@@ -16,9 +16,9 @@ export function ChatWindow({ messages, isLoading }: ChatWindowProps) {
         {messages.length === 0 && (
           <div className="flex flex-col items-center justify-center h-full text-center p-8">
             <Bot className="h-12 w-12 text-primary mb-4" />
-            <h2 className="text-2xl font-bold text-primary mb-2">Welcome to Gemini Chat</h2>
+            <h2 className="text-2xl font-bold text-primary mb-2">Welcome to PromptGPT</h2>
             <p className="text-muted-foreground max-w-md">
-              Your AI-powered assistant. Start by typing a message below to begin our conversation.
+              Your AI-powered prompt engineer assistant. Start by typing a prompt below to begin our conversation.
             </p>
           </div>
         )}
