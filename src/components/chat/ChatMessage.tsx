@@ -1,14 +1,16 @@
-import { Bot, User } from 'lucide-react';
+import { Bot, User, Copy, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Message } from '@/types/chat';
 import { Card } from "@/components/ui/card";
-import ReactMarkdown from 'react-markdown';
+import { useState } from 'react';
 
 interface ChatMessageProps {
   message: Message;
 }
 
 export function ChatMessage({ message }: ChatMessageProps) {
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
   const formatPromptContent = (content: string) => {
     return content.replace(
       /\*\*(.*?)\*\*/g,
@@ -16,37 +18,38 @@ export function ChatMessage({ message }: ChatMessageProps) {
     );
   };
 
-  const renderContent = () => {
-    if (message.role === 'assistant' && message.content.includes('**')) {
+  const handleCopy = (text: string, index: number) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    });
+  };
+
+  const renderOptions = () => {
+    const options = message.content.split('\n').filter(option => option.trim() !== '');
+
+    return options.map((option, index) => {
+      const [label, value] = option.split(':');
+      const trimmedValue = value ? value.trim() : label.trim();
+
       return (
-        <div className="prose prose-sm dark:prose-invert max-w-none">
-          <ReactMarkdown
-            components={{
-              h2: ({ children }) => (
-                <h2 className="text-lg font-semibold mb-2">{children}</h2>
-              ),
-              strong: ({ children }) => (
-                <span className="font-semibold text-primary">{children}</span>
-              ),
-              code: ({ children }) => (
-                <code className="bg-muted px-1 py-0.5 rounded">{children}</code>
-              ),
-            }}
+        <div key={index} className="flex items-center justify-between">
+          <div className="text-sm text-muted-foreground break-words flex-1 pr-2"> {/* Added flex-1 to allow text to take available space */}
+            <span dangerouslySetInnerHTML={{ __html: formatPromptContent(option) }} />
+          </div>
+          <button 
+            onClick={() => handleCopy(trimmedValue, index)} 
+            className="ml-2 inline-flex items-center justify-center rounded-md text-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring bg-purple-600 text-white hover:bg-purple-700 h-10 w-10 min-w-[40px]" // Set a minimum width
           >
-            {message.content}
-          </ReactMarkdown>
+            {copiedIndex === index ? (
+              <Check className="h-4 w-4" />
+            ) : (
+              <Copy className="h-4 w-4" />
+            )}
+          </button>
         </div>
       );
-    }
-
-    return (
-      <div 
-        className="text-sm text-muted-foreground break-words"
-        dangerouslySetInnerHTML={{ 
-          __html: formatPromptContent(message.content) 
-        }}
-      />
-    );
+    });
   };
 
   return (
@@ -70,7 +73,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         <div className="text-sm font-medium">
           {message.role === 'assistant' ? 'PromptGPT' : 'You'}
         </div>
-        {renderContent()}
+        {renderOptions()}
       </div>
     </Card>
   );

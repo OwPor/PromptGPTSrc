@@ -9,7 +9,7 @@ export function Header() {
             <Brain className="h-7 w-7 text-primary animate-pulse" />
             <div>
               <h1 className="font-bold text-xl">PromptGPT</h1>
-              <p className="text-xs text-muted-foreground">AI Assistant</p>
+              <p className="text-xs text-muted-foreground">AI Prompt Engineer</p>
             </div>
           </div>
         </div>
