@@ -26,7 +26,7 @@ export function useChat() {
             {
               parts: [
                 {
-                  text: `${process.env.PromptPart1}${input}${process.env.PromptPart2}`
+                  text: `${process.env.VITE_PromptPart1}${input}${process.env.VITE_PromptPart2}`
                 }
               ]
             }
@@ -37,7 +37,7 @@ export function useChat() {
             'Content-Type': 'application/json'
           },
           params: {
-            key: process.env.API_KEY
+            key: process.env.VITE_API_KEY
           }
         }
       );
