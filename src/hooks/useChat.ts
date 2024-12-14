@@ -26,14 +26,7 @@ export function useChat() {
             {
               parts: [
                 {
-                  text: `
-You are PromptGPT, created by OwPor. An AI designed to create concise and effective prompts for AI models. For the following scenario, generate three distinct prompts from different creative perspectives.
-Prompt: ${input}
-Output Format:
-**Option 1** : [Insert concise prompt here]
-**Option 2** : [Insert concise prompt here]
-**Option 3** : [Insert concise prompt here]
-Focus solely on crafting the prompts. Keep them concise and creative—no additional commentary or explanation is required.`
+                  text: input
                 }
               ]
             }
@@ -44,7 +37,7 @@ Focus solely on crafting the prompts. Keep them concise and creative—no additi
             'Content-Type': 'application/json'
           },
           params: {
-            key: "AIzaSyDeZZIj0AFVnEgZu_EqcclDoIHkjCabVLU"
+            key: "API_KEY"
           }
         }
       );
