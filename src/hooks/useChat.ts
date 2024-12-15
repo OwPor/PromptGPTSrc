@@ -26,7 +26,11 @@ export function useChat() {
             {
               parts: [
                 {
-                  text: input
+                  text: `
+
+${input}
+
+                        `
                 }
               ]
             }
