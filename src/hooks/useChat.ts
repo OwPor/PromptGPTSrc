@@ -27,7 +27,7 @@ export function useChat() {
               parts: [
                 {
                   text: `
-
+PUT YOUR PROMPT HERE
 ${input}
 
                         `
